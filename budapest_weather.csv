@@ -1,0 +1,2 @@
+coord,weather,base,main,visibility,wind,clouds,dt,sys,timezone,id,name,cod
+,"{'id': 800, 'main': 'Clear', 'description': 'clear sky', 'icon': '01d'}",stations,,10000,,,1688567105,,7200,3054643,Budapest,200

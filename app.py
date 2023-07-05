@@ -19,7 +19,7 @@ def getCoordinates(city):
             cache[city] = coordinates
             return coordinates
         else:
-            print("Nincs ilyen város!")
+            print("\nNincs ilyen város!")
             return None
 #koordináták lekérése -> API CALL
 def fetchCoordinates(city):
@@ -39,7 +39,7 @@ def getWeather(city):
         if data is not None:
             return data
         else:
-            print("Sikertelen művelet!")
+            print("\nSikertelen művelet!")
             return None
     else:
         return None
@@ -55,22 +55,24 @@ def fetchWeather(lat, lon):
 #adatok mentése csv fájlba.
 def saveData(data, city):
     filename = f"{city}_weather.csv"
-    df = pd.DataFrame(data)
+    df = pd.DataFrame(data, index=[0])
     df.to_csv(filename, index=False)
     print(f"Sikeres mentés, fájlnév: {filename}")
 
 
 def showMenu():
-    print("1 - Csapadék előrejelzés lekérése")
+
+    print("\n1 - Csapadék előrejelzés lekérése")
     print("2 - Adatok mentése CSV-fájlba")
     print("0 - Kilépés")
 
 def main():
     while True:
         showMenu()
-        choice = input("Kérem válasszon menüpontot: ")
+        choice = input("\nKérem válasszon menüpontot: ")
         
         if choice == '1':
+            print(" ")
             city = input("Kérem a város nevét: ")
             coordinates = getCoordinates(city)
             if coordinates is not None:
@@ -82,14 +84,14 @@ def main():
                     data = response.json()
                     elorejelzes = data.get('rain', {}).get('1h', 0)
                     if elorejelzes != 0:
-                        print(f"Az egy órára várható csapadék mennyisége: {elorejelzes} mm")
+                        print(f"\nAz egy órára várható csapadék mennyisége: {elorejelzes} mm")
                     else:
-                        print("Az egy órára várható csapadék mennyisége: Nincs szolgáltatott adat!")
+                        print("\nAz egy órára várható csapadék mennyisége: Nincs szolgáltatott adat!")
                 else:
                     print("A lekérés sikertelen!")
             
         elif choice == '2':
-            city = input("Add meg a város nevét: ")
+            city = input("\nAdd meg a város nevét: ")
             data = getWeather(city)
             if data is not None:
                 saveData(data, city)
@@ -98,7 +100,7 @@ def main():
             break
             
         else:
-            print("Nincs ilyen menüpont! Válassz újra!")
+            print("\nNincs ilyen menüpont! Válassz újra!")
 
 if __name__ == '__main__':
     main()
