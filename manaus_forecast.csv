@@ -1,0 +1,2 @@
+coord,weather,base,main,visibility,wind,clouds,dt,sys,timezone,id,name,cod
+,"{'id': 803, 'main': 'Clouds', 'description': 'broken clouds', 'icon': '04d'}",stations,,10000,,,1688565206,,-14400,3754135,Educandos,200
