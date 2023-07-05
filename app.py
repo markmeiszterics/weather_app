@@ -19,7 +19,7 @@ def getCoordinates(city):
             cache[city] = coordinates
             return coordinates
         else:
-            print("Helytelen városnév.")
+            print("Nincs ilyen város!")
             return None
 #koordináták lekérése -> API CALL
 def fetchCoordinates(city):
@@ -39,7 +39,7 @@ def getWeather(city):
         if data is not None:
             return data
         else:
-            print("Sikertelen művelet! #getWeather")
+            print("Sikertelen művelet!")
             return None
     else:
         return None
@@ -50,7 +50,7 @@ def fetchWeather(lat, lon):
     if response.status_code == 200:
         return response.json()
     else:
-        print(response.status_code, " breakpoint")
+        #print(response.status_code, " breakpoint")
         return None
 #adatok mentése csv fájlba.
 def saveData(data, city):
@@ -80,16 +80,16 @@ def main():
                 response = requests.get(url)
                 if response.status_code == 200:
                     data = response.json()
-                    precipitation = data.get('rain', {}).get('1h', 0)
-                    if precipitation != 0:
-                        print(f"Az egy órára várható csapadék mennyisége: {precipitation} mm")
+                    elorejelzes = data.get('rain', {}).get('1h', 0)
+                    if elorejelzes != 0:
+                        print(f"Az egy órára várható csapadék mennyisége: {elorejelzes} mm")
                     else:
-                        print("Az egy órára várható csapadék mennyisége: Nincs adat")
+                        print("Az egy órára várható csapadék mennyisége: Nincs szolgáltatott adat!")
                 else:
-                    print("Hiba: Az időjárás adatok lekérése sikertelen.")
+                    print("A lekérés sikertelen!")
             
         elif choice == '2':
-            city = input("Kérem a város nevét: ")
+            city = input("Add meg a város nevét: ")
             data = getWeather(city)
             if data is not None:
                 saveData(data, city)
@@ -98,7 +98,7 @@ def main():
             break
             
         else:
-            print("Hibás választás. Kérem válasszon egy érvényes menüpontot.")
+            print("Nincs ilyen menüpont! Válassz újra!")
 
 if __name__ == '__main__':
     main()
